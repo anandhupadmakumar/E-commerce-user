@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "481945285673",
+    "project_id": "shoe-shoppingcart",
+    "storage_bucket": "shoe-shoppingcart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481945285673:android:bc0bebe200c7691ef15838",
+        "android_client_info": {
+          "package_name": "com.example.shoe_cart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481945285673-847g8ivlqpljlqdbj9ga74ejm2u2mcjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMHWX6F9FzrESF0VREl7ZtGIdi_eK1bkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481945285673-847g8ivlqpljlqdbj9ga74ejm2u2mcjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
