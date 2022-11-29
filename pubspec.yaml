@@ -39,6 +39,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
+  geocoding: ^2.0.5
+  geolocator: ^9.0.2
   get: ^4.6.5
   google_maps_flutter: ^2.2.1
   image_picker: ^0.8.6

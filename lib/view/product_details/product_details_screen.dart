@@ -13,6 +13,8 @@ import 'package:shoe_cart/model/my_cart_model/my_cart_model.dart';
 import 'package:shoe_cart/view/cart/cart_screen.dart';
 import 'package:shoe_cart/view/widgets/appbar_widget.dart';
 
+import '../../controller/wishlist_controller.dart';
+
 class ProductDetailsScreen extends StatelessWidget {
   ProductDetailsScreen(
       {super.key,
@@ -26,6 +28,7 @@ class ProductDetailsScreen extends StatelessWidget {
   final String productOffer;
   final UserController userControllerProduct = Get.put(UserController());
   CartController _cartController = Get.put(CartController());
+  final WishListController wishController = Get.put(WishListController());
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +102,19 @@ class ProductDetailsScreen extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(right: 20),
-                          child: Icon(
-                            Icons.favorite_border_outlined,
-                            size: 30,
-                          ),
+                          child: wishController.wishlistProductName
+                                  .contains(productTitle)
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: 30,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border_outlined,
+                                  size: 30,
+                                ),
                         )
                       ],
                     ),
@@ -141,7 +151,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         },
                         child: const CircleAvatar(
                           backgroundColor: Colors.black,
-                          child: Text('-'),
+                          child: Text(
+                            '-',
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -162,7 +176,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         },
                         child: const CircleAvatar(
                           backgroundColor: Colors.black,
-                          child: Text('+'),
+                          child: Text(
+                            '+',
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -251,7 +269,6 @@ class ProductDetailsScreen extends StatelessWidget {
           _cartController.addProdutUserCart(addProduct);
 
           Get.to(() => CartScreen());
-          
         }),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),

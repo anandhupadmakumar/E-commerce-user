@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
               Get.to(
                   duration: const Duration(milliseconds: 1000),
                   transition: Transition.fadeIn,
-                  () => const WishListScreen());
+                  () => WishListScreen());
             },
             icon: const Icon(
               Icons.favorite_border,
@@ -202,7 +202,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const GridviewWidget()
+              GridviewWidget()
             ],
           ),
         ),

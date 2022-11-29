@@ -34,7 +34,6 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -203,17 +202,18 @@ class _SignUpFormState extends State<SignUpForm> {
                     signInUser(userNameController.text.trim(),
                         passwordController.text.trim());
 
-                    print('success');
                     final signUp = UserSignUpModel(
-                      userId: FirebaseAuth.instance.currentUser?.uid,
-                      fullName: nameController.text,
-                      phoneNumber: phoneNumberController.text,
-                      userName: userNameController.text,
-                      password: passwordController.text,
-                      isBlocked: 'false',
-                      imageUrl: userProfileController.userImageUrl,
-                      cart: []
-                    );
+                        userId:
+                            DateTime.now().microsecondsSinceEpoch.toString(),
+                        fullName: nameController.text,
+                        phoneNumber: phoneNumberController.text,
+                        userName: userNameController.text,
+                        password: passwordController.text,
+                        isBlocked: 'false',
+                        imageUrl: userProfileController.userImageUrl,
+                        cart: [],
+                        wishList: [],
+                        address: []);
 
                     final continueSignup = FirebaseFirestore.instance
                         .collection('user_datas')

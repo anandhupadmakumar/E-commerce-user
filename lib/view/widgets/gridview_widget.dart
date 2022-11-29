@@ -3,16 +3,20 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoe_cart/controller/wishlist_controller.dart';
 import 'package:shoe_cart/model/product_model/product_model.dart';
+import 'package:shoe_cart/model/whishlist/whislist_model.dart';
 import 'package:shoe_cart/view/product_details/product_details_screen.dart';
 
 class GridviewWidget extends StatelessWidget {
-  const GridviewWidget({
+  GridviewWidget({
     Key? key,
   }) : super(key: key);
+  final WishListController wishController = Get.put(WishListController());
 
   @override
   Widget build(BuildContext context) {
+    wishController.onReady();
     return StreamBuilder(
         stream: FirebaseFirestore.instance.collection("admin").snapshots(),
         builder: (context,
@@ -63,13 +67,50 @@ class GridviewWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Align(
                           alignment: Alignment.topRight,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.black,
-                            child: Icon(Icons.favorite_border_outlined),
+                          child: InkWell(
+                            onTap: () {
+                              if (wishController.wishlistProductName
+                                  .contains(data.productName)) {
+                                wishController.wishListDelete(
+                                    wishController.wishListItems[index]);
+                              } else {
+                                final addWishList = WishListModel(
+                                    id: data.id,
+                                    productName: data.productName,
+                                    productPrice: data.productPrice,
+                                    size: '40',
+                                    productImage: data.productImage,
+                                    color: 'green');
+                                wishController
+                                    .addProdutUserWishList(addWishList);
+                              }
+                              // final a = wishController.wishListItems
+                              //     .map((e) => e['product_name'])
+                              //     .toList();
+                              // bool b = wishController.wishlistProductName
+                              //     .contains(data.productName);
+                              // print(data.productName);
+                            },
+                            child: GetBuilder<WishListController>(
+                                id: 'wishList',
+                                builder: (wData) {
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.black,
+                                    child: wData.wishlistProductName
+                                            .contains(data.productName)
+                                        ? const Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          )
+                                        : const Icon(
+                                            Icons.favorite_border_outlined,
+                                          ),
+                                  );
+                                }),
                           ),
                         ),
                       ),
@@ -82,11 +123,12 @@ class GridviewWidget extends StatelessWidget {
                           children: [
                             Text(
                               data.productName,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            const Text(
-                              "₹2,279",
-                              style: TextStyle(
+                            Text(
+                              '₹ ${data.productPrice}',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.red),
                             ),

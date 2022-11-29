@@ -20,7 +20,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   UserController controller = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
-    // controller.getuser();
+    controller.getuser();
+    
 
     log(index.toString());
     return Scaffold(

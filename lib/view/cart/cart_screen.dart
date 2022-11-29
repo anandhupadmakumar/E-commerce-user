@@ -23,356 +23,362 @@ class CartScreen extends StatelessWidget {
     // cartController.toatalPrice();
     // cartController.totalprice.value = 0;
     cartController.getuserCartItem();
-    controller.getuser();
+    // controller.getuser();
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: AppBarWidget(title: 'My Cart'),
       ),
       body: Stack(
+        fit: StackFit.expand,
         children: [
           Positioned(
             top: 10,
             left: 0,
             right: 0,
             bottom: 100,
-            child: GetBuilder<UserController>(builder: (userCdata) {
-              return ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  // final data = UserSignUpModel.fromJson(
-                  //     cartController.userCart![index]);
-                  // print(snapshot.data?.docs[index].data());
-                  // log(data.cart.toString());
+            child: GetBuilder<CartController>(
+                id: 'itemAdded',
+                builder: (userCdata) {
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      // final data = UserSignUpModel.fromJson(
+                      //     cartController.userCart![index]);
+                      // print(snapshot.data?.docs[index].data());
+                      // log(data.cart.toString());
 
-                  // final items = data;
-                  // log(items.toString());
-                  final data =
-                      MyCartModel.fromJson(cartController.userCart![index]);
+                      // final items = data;
+                      // log(items.toString());
+                      final data =
+                          MyCartModel.fromJson(cartController.userCart[index]);
 
-                  // final tatoal = cartController.userCart!.map((e) {
-                  //   e['product_price'];
-                  //   cartController.toatalPrice(e['product_price']);
-                  //   log('${e['product_price']} marrrrr.....................');
-                  //   cartController.totalprice.value += e['product_price'];
-                  // });
+                      // final tatoal = cartController.userCart!.map((e) {
+                      //   e['product_price'];
+                      //   cartController.toatalPrice(e['product_price']);
+                      //   log('${e['product_price']} marrrrr.....................');
+                      //   cartController.totalprice.value += e['product_price'];
+                      // });
 
-                  // log('${cartController.totalprice} marrrrr.....................');
+                      // log('${cartController.totalprice} marrrrr.....................');
 
-                  return GetBuilder<CartController>(
-                      id: 'delete',
-                      builder: (cData) {
-                        return ListTile(
-                          // isThreeLine: true,
-                          leading: Container(
-                            width: 70,
-                            height: 70,
-                            decoration: const BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                      return GetBuilder<CartController>(
+                          id: 'delete',
+                          builder: (cData) {
+                            return ListTile(
+                              // isThreeLine: true,
+                              leading: Container(
+                                width: 70,
+                                height: 70,
+                                decoration: const BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: Image(
+                                  image: NetworkImage(data.productImage),
+                                ),
                               ),
-                            ),
-                            child: Image(
-                              image: NetworkImage(data.productImage),
-                            ),
-                          ),
-                          title: Column(
-                            children: [
-                              SizedBox(
-                                height: 30,
-                                child: Row(
-                                  children: [
-                                    Text(data.productName),
-                                    const Spacer(),
-                                    IconButton(
-                                      onPressed: (() {
-                                        Get.bottomSheet(
-                                          BottomSheet(
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  20))),
-                                              onClosing: () {},
-                                              builder: (context) {
-                                                return SizedBox(
-                                                  height: 300,
-                                                  child: ListView(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 20),
-                                                    children: [
-                                                      const Center(
-                                                        child: Text(
-                                                          'Remove From Cart?',
-                                                          style: TextStyle(
-                                                              fontSize: 25,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      height20,
-                                                      ListTile(
-                                                        // isThreeLine: true,
-                                                        leading: Container(
-                                                          decoration: const BoxDecoration(
-                                                              color:
-                                                                  Colors.grey,
-                                                              borderRadius: BorderRadius
-                                                                  .all(Radius
+                              title: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                    child: Row(
+                                      children: [
+                                        Text(data.productName),
+                                        const Spacer(),
+                                        IconButton(
+                                          onPressed: (() {
+                                            Get.bottomSheet(
+                                              BottomSheet(
+                                                  shape:
+                                                      const RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
                                                                       .circular(
-                                                                          10))),
-                                                          width: 70,
-                                                          height: 70,
-                                                          child: Image(
-                                                              image: NetworkImage(
-                                                                  data.productImage)),
-                                                        ),
-                                                        title: Row(
-                                                          children: [
-                                                            Text(data
-                                                                .productName),
-                                                            const Spacer(),
-                                                          ],
-                                                        ),
-                                                        subtitle: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                                '${data.color} | ${data.size}'),
-                                                            Row(
+                                                                          20))),
+                                                  onClosing: () {},
+                                                  builder: (context) {
+                                                    return SizedBox(
+                                                      height: 300,
+                                                      child: ListView(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                vertical: 20),
+                                                        children: [
+                                                          const Center(
+                                                            child: Text(
+                                                              'Remove From Cart?',
+                                                              style: TextStyle(
+                                                                  fontSize: 25,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                          height20,
+                                                          ListTile(
+                                                            // isThreeLine: true,
+                                                            leading: Container(
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              10))),
+                                                              width: 70,
+                                                              height: 70,
+                                                              child: Image(
+                                                                  image: NetworkImage(
+                                                                      data.productImage)),
+                                                            ),
+                                                            title: Row(
                                                               children: [
-                                                                Text(
-                                                                    '${data.productPrice}'),
+                                                                Text(data
+                                                                    .productName),
                                                                 const Spacer(),
-                                                                //  const  CircleAvatar(
-                                                                //     radius: 10,
-                                                                //     backgroundColor:
-                                                                //         Colors
-                                                                //             .black,
-                                                                //     child:
-                                                                //         Text('-'),
-                                                                //   ),
-                                                                //  const  SizedBox(
-                                                                //     width: 10,
-                                                                //   ),
-                                                                //   CircleAvatar(
-                                                                //     radius: 10,
-                                                                //     backgroundColor:
-                                                                //         Colors
-                                                                //             .black,
-                                                                //     child: Text(
-                                                                //         '01'),
-                                                                //   ),
-                                                                // SizedBox(
-                                                                //   width: 10,
-                                                                // ),
-                                                                // CircleAvatar(
-                                                                //   radius: 10,
-                                                                //   backgroundColor:
-                                                                //       Colors
-                                                                //           .black,
-                                                                //   child:
-                                                                //       Text('+'),
-                                                                // ),
                                                               ],
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 80,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {},
-                                                            child: Container(
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      20),
-                                                              width: 180,
-                                                              height: 50,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Color
-                                                                      .fromARGB(
+                                                            subtitle: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                    '${data.color} | ${data.size}'),
+                                                                Row(
+                                                                  children: [
+                                                                    Text(
+                                                                        '${data.productPrice}'),
+                                                                    const Spacer(),
+                                                                    //  const  CircleAvatar(
+                                                                    //     radius: 10,
+                                                                    //     backgroundColor:
+                                                                    //         Colors
+                                                                    //             .black,
+                                                                    //     child:
+                                                                    //         Text('-'),
+                                                                    //   ),
+                                                                    //  const  SizedBox(
+                                                                    //     width: 10,
+                                                                    //   ),
+                                                                    //   CircleAvatar(
+                                                                    //     radius: 10,
+                                                                    //     backgroundColor:
+                                                                    //         Colors
+                                                                    //             .black,
+                                                                    //     child: Text(
+                                                                    //         '01'),
+                                                                    //   ),
+                                                                    // SizedBox(
+                                                                    //   width: 10,
+                                                                    // ),
+                                                                    // CircleAvatar(
+                                                                    //   radius: 10,
+                                                                    //   backgroundColor:
+                                                                    //       Colors
+                                                                    //           .black,
+                                                                    //   child:
+                                                                    //       Text('+'),
+                                                                    // ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 80,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {},
+                                                                child:
+                                                                    Container(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      horizontal:
+                                                                          20),
+                                                                  width: 180,
+                                                                  height: 50,
+                                                                  decoration: const BoxDecoration(
+                                                                      color: Color.fromARGB(
                                                                           255,
                                                                           74,
                                                                           73,
                                                                           73),
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              40))),
-                                                              child: Center(
-                                                                  child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: const [
-                                                                  Text(
-                                                                    'Cancel',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            18),
-                                                                  ),
-                                                                ],
-                                                              )),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              // cartController
-                                                              //     .removeCartItem(
-                                                              //         data);
-                                                              // log('${cartController.userCart![index]}.>>>>>......................................');
-                                                              // cartController
-                                                              //     .userCart![index];
-                                                              userCdata
-                                                                  .updateUserData({
-                                                                "userCart":
-                                                                    FieldValue
-                                                                        .arrayRemove([
-                                                                  cartController
-                                                                          .userCart![
-                                                                      index]
-                                                                ])
-                                                              });
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(40))),
+                                                                  child: Center(
+                                                                      child:
+                                                                          Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                    children: const [
+                                                                      Text(
+                                                                        'Cancel',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ],
+                                                                  )),
+                                                                ),
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  // cartController
+                                                                  //     .removeCartItem(
+                                                                  //         data);
+                                                                  // log('${cartController.userCart![index]}.>>>>>......................................');
+                                                                  // cartController
+                                                                  //     .userCart![index];
 
-                                                              // .removeCartItem(
-                                                              //     cartController
-                                                              //             .userCart![
-                                                              //         index]);
+                                                                  controller
+                                                                      .updateUserData({
+                                                                    "userCart":
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      cartController
+                                                                              .userCart[
+                                                                          index]
+                                                                    ])
+                                                                  });
 
-                                                              //cartitem delete
-                                                              userCdata
-                                                                  .getuser();
-                                                              Get.back();
-                                                            },
-                                                            child: Container(
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      20),
-                                                              width: 180,
-                                                              height: 50,
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              40))),
-                                                              child: Center(
-                                                                  child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: const [
-                                                                  Text(
-                                                                    'Yes ,Remove',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            18),
-                                                                  ),
-                                                                ],
-                                                              )),
-                                                            ),
-                                                          ),
+                                                                  // .removeCartItem(
+                                                                  //     cartController
+                                                                  //             .userCart![
+                                                                  //         index]);
+
+                                                                  //cartitem delete
+                                                                  // userCdata
+                                                                  //     .getuser();
+                                                                  Get.back();
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      horizontal:
+                                                                          20),
+                                                                  width: 180,
+                                                                  height: 50,
+                                                                  decoration: const BoxDecoration(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(40))),
+                                                                  child: Center(
+                                                                      child:
+                                                                          Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                    children: const [
+                                                                      Text(
+                                                                        'Yes ,Remove',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ],
+                                                                  )),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
                                                         ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              }),
-                                        );
-                                      }),
-                                      icon: const Icon(
-                                        Icons.delete_outline_rounded,
-                                        color: Colors.black,
-                                        size: 25,
-                                      ),
+                                                      ),
+                                                    );
+                                                  }),
+                                            );
+                                          }),
+                                          icon: const Icon(
+                                            Icons.delete_outline_rounded,
+                                            color: Colors.black,
+                                            size: 25,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('${data.color}| ${data.size}'),
-                              height10,
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    ' ₹${data.productPrice}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
                                   ),
-                                  const Spacer(),
-                                  const CircleAvatar(
-                                    radius: 12,
-                                    backgroundColor: Colors.black,
-                                    child: Text('-'),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  CircleAvatar(
-                                    radius: 12,
-                                    backgroundColor: Colors.black,
-                                    child: Text(data.itemCount),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  GetBuilder<CartController>(
-                                      builder: (controllerdata) {
-                                    return InkWell(
-                                      onTap: (() {
-                                        // cData.increaseQuantity(data);
-                                        // int a = int.parse(data.itemCount);
-                                        // a++;
-                                        // data.productPrice *= a;
-                                        // log(data.productPrice.toString());
-                                      }),
-                                      child: const CircleAvatar(
-                                        radius: 12,
-                                        backgroundColor: Colors.black,
-                                        child: Center(child: Text('+')),
-                                      ),
-                                    );
-                                  }),
                                 ],
                               ),
-                            ],
-                          ),
-                        );
-                      });
-                },
-                separatorBuilder: (context, index) {
-                  return height20;
-                },
-                itemCount: cartController.userCart!.length,
-              );
-            }),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('${data.color}| ${data.size}'),
+                                  height10,
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        ' ₹${data.productPrice}',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      const Spacer(),
+                                      const CircleAvatar(
+                                        radius: 12,
+                                        backgroundColor: Colors.black,
+                                        child: Text('-'),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      CircleAvatar(
+                                        radius: 12,
+                                        backgroundColor: Colors.black,
+                                        child: Text(data.itemCount),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      GetBuilder<CartController>(
+                                          builder: (controllerdata) {
+                                        return InkWell(
+                                          onTap: (() {
+                                            // cData.increaseQuantity(data);
+                                            // int a = int.parse(data.itemCount);
+                                            // a++;
+                                            // data.productPrice *= a;
+                                            // log(data.productPrice.toString());
+                                          }),
+                                          child: const CircleAvatar(
+                                            radius: 12,
+                                            backgroundColor: Colors.black,
+                                            child: Center(child: Text('+')),
+                                          ),
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    },
+                    separatorBuilder: (context, index) {
+                      return height20;
+                    },
+                    itemCount: cartController.userCart.length,
+                  );
+                }),
           ),
           Align(
             alignment: Alignment.bottomLeft,

@@ -9,8 +9,8 @@ class MostPopularScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PreferredSize(
+    return  Scaffold(
+      appBar: const PreferredSize(
          
           preferredSize: Size.fromHeight(80),
            child: AppBarWidget(title: 'Most Popular'),),

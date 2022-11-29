@@ -1,14 +1,15 @@
 import 'package:clippy_flutter/arc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoe_cart/view/signup/sign_up_form.dart';
+import 'package:shoe_cart/controller/user_controller.dart';
+import 'package:shoe_cart/view/profile/update_profile.dart';
+import 'package:shoe_cart/view/shipping_address/shipping_address.dart';
 import 'package:shoe_cart/view/user_login/login_screen.dart';
-import 'package:shoe_cart/view/widgets/appbar_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
+  final controller = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +32,12 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 150,
                 color: const Color.fromARGB(255, 196, 195, 193),
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'asset/images/2e4a46f066948168ad652c5562e03f5c.jpeg'),
+                    backgroundImage: NetworkImage(
+                        controller.loggedInuser?.imageUrl ?? '',
+                        scale: 1.2),
                   ),
                 ),
               ),
@@ -43,30 +45,37 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(
               height: 80,
             ),
-            const ProfileListTileWidget(
-                icon: Icons.person,
-                title: 'Edit Profile',
-                trailingIcon: Icons.arrow_forward_ios),
-            const ProfileListTileWidget(
-                icon: Icons.location_on,
-                title: 'Address',
-                trailingIcon: Icons.arrow_forward_ios),
-            const ProfileListTileWidget(
-                icon: Icons.notifications,
-                title: 'Notification',
-                trailingIcon: Icons.arrow_forward_ios),
-            const ProfileListTileWidget(
-                icon: Icons.wallet,
-                title: 'Payment ',
-                trailingIcon: Icons.arrow_forward_ios),
-            const ProfileListTileWidget(
-                icon: Icons.lock,
-                title: 'Privacy Policy',
-                trailingIcon: Icons.arrow_forward_ios),
-            const ProfileListTileWidget(
-                icon: Icons.logout,
-                title: 'Logout',
-                trailingIcon: Icons.arrow_forward_ios),
+            ListTile(
+              onTap: () {
+                Get.to(() => EditProfileScreen());
+              },
+              leading: const Icon(Icons.person),
+              title: const Text('Edit Profile'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+            ),
+            ListTile(
+              onTap: () {
+                Get.to(() => ShippingAddress());
+              },
+              leading: const Icon(Icons.location_on),
+              title: const Text('Address'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+            ),
+            ListTile(
+              onTap: () {},
+              leading: const Icon(Icons.lock),
+              title: const Text('Privacy Policy'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+            ),
+            ListTile(
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Get.offAll(() => LoginScreen());
+              },
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+            ),
           ],
         ));
   }

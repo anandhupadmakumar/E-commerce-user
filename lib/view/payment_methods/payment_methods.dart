@@ -25,31 +25,31 @@ class PaymentMethodScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
-          const ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Center(
-                child: Icon(Icons.wallet),
-              ),
-            ),
-            title: Text('My Wallet'),
-            trailing: Icon(
-              Icons.radio_button_checked,
-              color: Colors.black,
-            ),
-          ),
-          height20,
-          const ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Image(image: AssetImage('asset/images/googlepay.png')),
-            ),
-            title: Text('Google Pay'),
-            trailing: Icon(
-              Icons.radio_button_unchecked,
-              color: Colors.black,
-            ),
-          ),
+          // const ListTile(
+          //   leading: CircleAvatar(
+          //     backgroundColor: Colors.white,
+          //     child: Center(
+          //       child: Icon(Icons.wallet),
+          //     ),
+          //   ),
+          //   title: Text('My Wallet'),
+          //   trailing: Icon(
+          //     Icons.radio_button_checked,
+          //     color: Colors.black,
+          //   ),
+          // ),
+          // height20,
+          // const ListTile(
+          //   leading: CircleAvatar(
+          //     backgroundColor: Colors.white,
+          //     child: Image(image: AssetImage('asset/images/googlepay.png')),
+          //   ),
+          //   title: Text('Google Pay'),
+          //   trailing: Icon(
+          //     Icons.radio_button_unchecked,
+          //     color: Colors.black,
+          //   ),
+          // ),
           height20,
           const ListTile(
             leading: CircleAvatar(
@@ -58,7 +58,7 @@ class PaymentMethodScreen extends StatelessWidget {
             ),
             title: Text('Razor Pay'),
             trailing: Icon(
-              Icons.radio_button_unchecked,
+              Icons.radio_button_checked,
               color: Colors.black,
             ),
           ),

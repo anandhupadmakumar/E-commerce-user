@@ -13,6 +13,8 @@ class UserSignUpModel {
     this.isBlocked,
     this.imageUrl,
     this.cart,
+    this.wishList,
+     this.address,
   });
 
   String? userId;
@@ -23,6 +25,8 @@ class UserSignUpModel {
   String? isBlocked;
   String? imageUrl;
   List<MyCartModel>? cart;
+  List? wishList;
+  List? address;
 
   UserSignUpModel.fromJson(Map<String, dynamic> json) {
     userId = json["id"];
@@ -33,6 +37,8 @@ class UserSignUpModel {
     password = json["user_password"];
     isBlocked = json["is_blocked"];
     cart = converMycartModel(json["userCart"]);
+    wishList = json["userWishList"] ?? [];
+    address = json["user_address"]??[];
     print(
         '$cart,,,,,,,,,,,,..........................................<<<<<>>>>>>>>>');
   }
@@ -46,6 +52,8 @@ class UserSignUpModel {
         "user_password": password,
         "is_blocked": isBlocked,
         "userCart": cart,
+        "userWishList": wishList,
+        "user_addres": address,
       };
 
   List<MyCartModel> converMycartModel(List cartFromDb) {

@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:shoe_cart/constants/constants.dart';
 import 'package:shoe_cart/controller/cart_controller.dart';
+import 'package:shoe_cart/controller/promo_code_controller.dart';
 import 'package:shoe_cart/view/notification/notification_screen.dart';
 import 'package:shoe_cart/view/payment_methods/payment_methods.dart';
 import 'package:shoe_cart/view/promo_code/promo_code_screen.dart';
@@ -12,15 +13,33 @@ import 'package:shoe_cart/view/widgets/appbar_widget.dart';
 import 'package:shoe_cart/view/widgets/brand_container_widget.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  CheckoutScreen({super.key});
+  CheckoutScreen({super.key, this.offerValue = 1});
   CartController cartController = Get.put(CartController());
+  // final promocodeController = Get.put(PromoCodeController());
+  int offerValue = 1;
+  int deliverycharge = 40;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(60),
-          child: AppBarWidget(title: 'Checkout')),
+      appBar: AppBar(
+        title: const Text(
+          'Check Out',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              // deliverycharge = 0;
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         children: [
@@ -47,7 +66,7 @@ class CheckoutScreen extends StatelessWidget {
               subtitle: const Text('61480 sunbrook park,Pc 5679'),
               trailing: IconButton(
                 onPressed: () {
-                  Get.off(() => const ShippingAddress());
+                  Get.off(() => ShippingAddress());
                 },
                 icon: const Icon(
                   Icons.edit,
@@ -75,7 +94,7 @@ class CheckoutScreen extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Image(
                       image: NetworkImage(
-                          cartController.userCart![index]['product_image'])),
+                          cartController.userCart[index]['product_image'])),
                 ),
                 title: const Text("Duke Men's Shoes"),
                 subtitle: Column(
@@ -90,7 +109,7 @@ class CheckoutScreen extends StatelessWidget {
                           radius: 10,
                           backgroundColor: Colors.black,
                           child: Text(
-                              cartController.userCart![index]['item_count']),
+                              cartController.userCart[index]['item_count']),
                         ),
                       ],
                     ),
@@ -99,7 +118,7 @@ class CheckoutScreen extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) => height20,
-            itemCount: cartController.userCart!.length,
+            itemCount: cartController.userCart.length,
           ),
           height20,
           const Text(
@@ -120,7 +139,7 @@ class CheckoutScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(() => const PromoCodeScreen());
+                  Get.to(() => PromoCodeScreen());
                 },
                 child: const CircleAvatar(
                   backgroundColor: Colors.black,
@@ -140,12 +159,13 @@ class CheckoutScreen extends StatelessWidget {
             child: Column(
               children: [
                 height20,
+                height20,
                 Row(
-                  children: const [
+                  children: [
                     width20,
-                    Text('Amount'),
-                    Spacer(),
-                    Text(' ₹2,279'),
+                    const Text('Amount'),
+                    const Spacer(),
+                    Text('₹ ${cartController.totalprice}'),
                     width20
                   ],
                 ),
@@ -155,21 +175,26 @@ class CheckoutScreen extends StatelessWidget {
                     width20,
                     Text('Delivery charge'),
                     Spacer(),
-                    Text(' ₹40'),
+                    Text(' ₹ 40'),
                     width20
                   ],
                 ),
                 height20,
-                Row(
-                  children: const [
-                    width20,
-                    Text('Promo Code'),
-                    Spacer(),
-                    Text(' none'),
-                    width20,
-                  ],
-                ),
-                height20,
+                // Row(
+                //   children: [
+                //     width20,
+                //     const Text('Promo Code'),
+                //     const Spacer(),
+                //     Obx(
+
+                //       () => Text(
+                //         promocodeController.percentage.value.toString(),
+                //       ),
+                //     ),
+                //     width20,
+                //   ],
+                // ),
+
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Divider(
@@ -182,7 +207,9 @@ class CheckoutScreen extends StatelessWidget {
                     const Text('Total Amount'),
                     const Spacer(),
                     Text(
-                      '${cartController.totalprice + 42}',
+                      offerValue == 1
+                          ? '₹ ${(cartController.totalprice + deliverycharge)}'
+                          : '₹ ${(cartController.totalprice + 40) * offerValue / 100}',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     width20,

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,7 +16,7 @@ class CartController extends GetxController {
   UserController userController = Get.put(UserController());
   RxDouble totalprice = 0.0.obs;
   RxString total = '0'.obs;
-  List? userCart;
+  List userCart = [];
   final Razorpay razorpay = Razorpay();
   @override
   void onInit() {
@@ -122,7 +121,7 @@ class CartController extends GetxController {
 
       log("${userCart.toString()}................................................................");
     });
-    update(['totalprice']);
+    update(['totalprice', 'itemAdded', 'delete']);
   }
 
   toatalPrice() {
@@ -130,8 +129,8 @@ class CartController extends GetxController {
     // final a = userCart!.map((e) => e['product_price']);
     // final tota = a.map((e) => totalprice.value += e);
     // total = '${tota.last}';
-    for (var i = 0; i < userCart!.length; i++) {
-      totalprice.value += userCart![i]['product_price'];
+    for (var i = 0; i < userCart.length; i++) {
+      totalprice.value += userCart[i]['product_price'];
     }
 
     log('${totalprice.value} list total price print ..................>>>>>>>>>>>>>>>>');
