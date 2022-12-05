@@ -43,6 +43,7 @@ class GridviewWidget extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
+                        
                           Get.to(
                             () => ProductDetailsScreen(
                               productTitle: data.productName,
